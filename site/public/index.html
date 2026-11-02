@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Migrar MTA para MTAX, passo a passo | Hyper Scripts</title>
+  <meta name="description" content="Leve seu servidor do MTA para o MTAX em 7 passos guiados. Tudo roda no seu navegador, sem enviar nenhum arquivo.">
+  <meta name="theme-color" content="#111117">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="topo">
+    <a class="logo" href="#0" aria-label="Voltar para o início"><img src="logo.png" alt="Hyper Scripts"></a>
+    <div id="progresso" class="progresso" hidden>
+      <div class="progresso-barra"><span id="progresso-valor"></span></div>
+      <span id="progresso-texto" class="progresso-texto"></span>
+    </div>
+    <a class="topo-link" id="link-vantagens" href="#vantagens">Por que o MTAX?</a>
+    <a class="ajuda" href="https://discord.gg/hyperscripts" target="_blank" rel="noopener">Preciso de ajuda</a>
+  </header>
+
+  <main>
+
+    <section class="tela inicio" id="tela-0" hidden>
+      <div class="inicio-texto">
+        <h1>Leve seu servidor do MTA para o MTAX</h1>
+        <p class="lead">São 7 passos curtos e a gente te guia em cada um. Não precisa entender de programação.</p>
+        <a class="botao botao-grande" id="btn-comecar" href="#1">Começar</a>
+        <div class="confianca">
+          <h2>Seus sistemas continuam só seus</h2>
+          <p>A conversão acontece aqui no seu navegador. Nenhum arquivo é enviado para a gente.</p>
+          <p>Ainda desconfia? O projeto é aberto: <a data-repo target="_blank" rel="noopener">baixe no GitHub</a> e rode no seu próprio PC.</p>
+        </div>
+      </div>
+      <ol id="trilha" class="trilha" aria-label="Os 7 passos"></ol>
+    </section>
+
+    <section class="tela" id="tela-1" hidden>
+      <div class="licao">
+        <h2>Onde está o seu servidor hoje?</h2>
+        <p class="lead">Escolha uma opção e a gente mostra como pegar os arquivos.</p>
+        <div class="opcoes" role="radiogroup" aria-label="Onde está o servidor">
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-local="pc">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+            <strong>No meu PC</strong>
+          </button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-local="vps">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg>
+            <strong>Em uma VPS</strong>
+          </button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-local="host">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a5 5 0 1 1 .9-9.9A6 6 0 0 1 19 10a4 4 0 0 1-1 8H7z"/></svg>
+            <strong>Em uma hospedagem</strong>
+          </button>
+        </div>
+        <div id="instrucao-local" class="balao" hidden>
+          <div data-local="pc" hidden>
+            <h3>Perfeito, é o caso mais fácil</h3>
+            <p>Abra a pasta do seu servidor MTA e deixe a janela aberta. Os sistemas ficam em <code>mods/deathmatch/resources</code>, mas você pode usar a pasta inteira do servidor.</p>
+          </div>
+          <div data-local="vps" hidden>
+            <h3>Traga os arquivos para o seu PC</h3>
+            <p>Entre na VPS, compacte a pasta do servidor em <code>.zip</code> ou <code>.tar</code> e baixe esse arquivo para o seu computador.</p>
+          </div>
+          <div data-local="host" hidden>
+            <h3>Baixe pelo painel da hospedagem</h3>
+            <p>Abra o gerenciador de arquivos do painel, compacte a pasta do servidor em <code>.zip</code> e baixe para o seu computador.</p>
+          </div>
+          <p class="dica">Fique tranquilo: a gente trabalha em uma cópia. Seu servidor atual não muda.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tela tela-larga" id="tela-2" hidden>
+      <div id="zona" class="zona">
+        <h2 class="invisivel">Arraste seu servidor aqui</h2>
+        <svg class="zona-frase" viewBox="0 0 1640 210" aria-hidden="true">
+          <defs>
+            <linearGradient id="grad-frase" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1640" y2="0">
+              <stop offset="0" stop-color="#ff74d7"/>
+              <stop offset=".45" stop-color="#fe8bab"/>
+              <stop offset=".7" stop-color="#f38c7a"/>
+              <stop offset="1" stop-color="#e88c48"/>
+            </linearGradient>
+          </defs>
+          <text x="4" y="186" textLength="1632" lengthAdjust="spacingAndGlyphs">ARRASTE SEU SERVIDOR AQUI</text>
+        </svg>
+        <p class="lead zona-texto">Puxe a pasta do servidor (ou o <code>.zip</code>) para dentro desta tela e solte.</p>
+        <div class="zona-botoes">
+          <span>Não consegue arrastar?</span>
+          <button type="button" id="btn-pasta" class="botao botao-claro">Escolher pasta</button>
+          <button type="button" id="btn-arquivo" class="botao botao-claro">Escolher .zip ou .tar</button>
+        </div>
+      </div>
+
+      <div id="sem-suporte" class="balao balao-erro" hidden>
+        <h3>Este navegador não consegue rodar o migrador</h3>
+        <p>Abra este site no Chrome, Edge ou Firefox atualizados, no computador.</p>
+      </div>
+
+      <div id="fila" class="licao licao-larga" hidden>
+        <h2>Tudo certo? Confira o que vai ser migrado</h2>
+        <ul id="lista-fila" class="fila-lista"></ul>
+        <p id="aviso-fila" class="fila-aviso" hidden></p>
+        <div class="fila-mais">
+          <button type="button" id="btn-mais-pasta" class="link">Adicionar pasta</button>
+          <button type="button" id="btn-mais-arquivo" class="link">Adicionar .zip ou .tar</button>
+          <button type="button" id="btn-limpar" class="link">Limpar tudo</button>
+          <span id="fila-total"></span>
+        </div>
+      </div>
+
+      <div id="painel" class="licao" hidden>
+        <div id="processando">
+          <h2 id="etapa" role="status">Preparando...</h2>
+          <div id="barra" class="barra"><span id="barra-valor"></span></div>
+          <p class="lead">Pode demorar alguns minutos em servidores grandes. Deixe esta aba aberta.</p>
+          <aside class="dicas" aria-label="Vantagens do MTAX">
+            <h3 id="dica-titulo"></h3>
+            <p id="dica-texto"></p>
+            <div id="dica-pontos" class="dica-pontos" aria-hidden="true"></div>
+            <p class="dica-fim">Para mais informações e novidades, acesse <a href="https://mtaxsa.com/" target="_blank" rel="noopener">mtaxsa.com</a>.</p>
+          </aside>
+          <button type="button" id="btn-cancelar" class="link">Cancelar</button>
+        </div>
+        <div id="erro" class="balao balao-erro" hidden>
+          <h3>Não deu certo</h3>
+          <p id="erro-texto"></p>
+          <button type="button" id="btn-erro-voltar" class="link">Tentar de novo</button>
+        </div>
+        <details class="log-box">
+          <summary>Ver detalhes técnicos</summary>
+          <pre id="log"></pre>
+        </details>
+      </div>
+
+      <input type="file" id="input-pasta" webkitdirectory multiple hidden>
+      <input type="file" id="input-arquivo" accept=".zip,.tar,.gz,.tgz,.bz2,.tbz2,.xz,.txz" multiple hidden>
+    </section>
+
+    <section class="tela" id="tela-3" hidden>
+      <div id="sem-resultado" class="licao">
+        <h2>Primeiro, migre o seu servidor</h2>
+        <p class="lead">O resultado aparece aqui assim que a migração terminar.</p>
+        <p class="acao-solta"><a class="botao" href="#2">Ir para a migração</a></p>
+      </div>
+      <div id="relatorio" class="licao licao-larga" hidden>
+        <h2 id="rel-titulo"></h2>
+        <p id="rel-sub" class="lead"></p>
+        <div class="rel-baixar">
+          <a id="baixar" class="botao botao-grande">Baixar meus sistemas migrados <small id="baixar-tamanho"></small></a>
+          <button type="button" id="btn-de-novo" class="link">Migrar outro servidor</button>
+        </div>
+        <pre id="falhas" class="falhas" hidden></pre>
+        <div id="rel-conteudo" class="rel-conteudo"></div>
+      </div>
+    </section>
+
+    <section class="tela" id="tela-4" hidden>
+      <div class="licao">
+        <h2>Crie sua conta e sua Key no MTAX</h2>
+        <p class="lead">A Key é a licença do seu servidor. Marque cada item conforme for fazendo.</p>
+        <ul class="tarefas">
+          <li><label><input type="checkbox" data-tarefa="conta"><span>Crie sua conta clicando em <strong>Sign-in</strong></span></label><a class="botao botao-claro" href="https://mtaxsa.com/" target="_blank" rel="noopener">Abrir MTAX</a></li>
+          <li><label><input type="checkbox" data-tarefa="key"><span>No portal, entre em <strong>Servers</strong> e crie uma nova <strong>Key</strong></span></label><a class="botao botao-claro" href="https://mtaxsa.com/portal/keys" target="_blank" rel="noopener">Abrir Servers</a></li>
+          <li><label><input type="checkbox" data-tarefa="nota"><span>Copie a Key e guarde em um bloco de notas</span></label></li>
+        </ul>
+        <p class="dica">Não mostre sua Key para ninguém. Cada conta pode ter até 3 keys.</p>
+      </div>
+    </section>
+
+    <section class="tela" id="tela-5" hidden>
+      <div class="licao">
+        <h2>Coloque tudo no servidor MTAX</h2>
+        <p class="lead">Falta juntar as peças. Marque cada item conforme for fazendo.</p>
+        <ul class="tarefas">
+          <li><label><input type="checkbox" data-tarefa="extrair"><span>Extraia o <code>migracao-mtax.zip</code> que você baixou</span></label></li>
+          <li><label><input type="checkbox" data-tarefa="copiar"><span>Copie o que está dentro de <code>resources</code> para a pasta <code>resources</code> do servidor MTAX</span></label></li>
+          <li><label><input type="checkbox" data-tarefa="bancos"><span>Se o <code>.zip</code> tiver a pasta <code>databases</code>, copie ela para a pasta do servidor, junto do <code>server.cfg</code>. É isso que mantém os dados dos sistemas</span></label></li>
+          <li><label><input type="checkbox" data-tarefa="cfg"><span>Abra o <code>server.cfg</code> com o Bloco de Notas e troque <strong>SUAKEY</strong> pela sua Key</span></label></li>
+          <li><label><input type="checkbox" data-tarefa="ensure"><span>Adicione uma linha <code>ensure</code> para cada sistema ou pasta com colchetes que você copiou</span></label></li>
+        </ul>
+        <div class="codigo">
+          <button type="button" class="link btn-copiar" data-copiar="exemplo-cfg">Copiar exemplo</button>
+<pre id="exemplo-cfg">set sv_licenseKey "SUAKEY"
+
+ensure [utils]
+ensure [mtax]
+ensure [gameplay]
+ensure meu_sistema</pre>
+        </div>
+        <p class="dica">Mantenha as aspas e não apague o <code>ensure [utils]</code>: sem ele, os sistemas migrados não funcionam.</p>
+      </div>
+    </section>
+
+    <section class="tela" id="tela-6" hidden>
+      <div class="licao">
+        <h2>Coloque a logo e os banners do seu servidor</h2>
+        <p class="lead">É o que os jogadores veem antes de entrar. Prepare as imagens nestes tamanhos:</p>
+        <div class="midias">
+          <div class="midia">
+            <div class="midia-molde midia-logo"><span>256 x 256</span></div>
+            <h3>Logo</h3>
+            <p>256 x 256, até 1 MB, PNG ou JPEG</p>
+          </div>
+          <div class="midia">
+            <div class="midia-molde midia-info"><span>1316 x 512</span></div>
+            <h3>Banner de informações do servidor</h3>
+            <p>1316 x 512, até 20 MB</p>
+          </div>
+          <div class="midia">
+            <div class="midia-molde midia-download"><span>476 x 48</span></div>
+            <h3>Banner do download</h3>
+            <p>476 x 48, até 5 MB</p>
+          </div>
+        </div>
+        <div class="balao balao-atencao">
+          <h3>Evite Imgur ou outros sites externos</h3>
+          <p>Prefira deixar as imagens no próprio servidor. Assim elas não somem nem ficam fora do ar por causa de outro site.</p>
+        </div>
+        <ul class="tarefas">
+          <li><label><input type="checkbox" data-tarefa="imagens"><span>Coloquei as imagens na pasta do servidor, junto do <code>server.cfg</code></span></label></li>
+          <li><label><input type="checkbox" data-tarefa="cfg-imagens"><span>No <code>server.cfg</code>, troquei os nomes pelos das minhas imagens e apaguei o <code>#</code> do começo das linhas de banner</span></label></li>
+        </ul>
+        <div class="codigo">
+          <button type="button" class="link btn-copiar" data-copiar="exemplo-imagens">Copiar exemplo</button>
+<pre id="exemplo-imagens">load_server_icon logo.png
+sets banner_detail      "banner-info.png"
+sets banner_connecting  "banner-download.png"</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="tela" id="tela-7" hidden>
+      <div class="licao fim">
+        <div class="fim-selo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+        <h2>Agora é só ligar!</h2>
+        <p class="lead">Inicie o servidor e entre nele para testar. Se aparecer algo em vermelho no console, copie a mensagem e chame a gente.</p>
+        <ul class="tarefas">
+          <li><label><input type="checkbox" data-tarefa="ligar"><span>Liguei o servidor</span></label></li>
+          <li><label><input type="checkbox" data-tarefa="portas"><span>Liberei as portas <code>22003</code> (UDP), <code>22005</code> (TCP) e <code>22007</code> (voz)</span></label></li>
+          <li><label><input type="checkbox" data-tarefa="testar"><span>Entrei no servidor e testei login, inventário e os sistemas principais</span></label></li>
+        </ul>
+        <a class="botao botao-claro" href="https://discord.gg/hyperscripts" target="_blank" rel="noopener">Pedir ajuda no Discord</a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="rodape" class="rodape" hidden>
+    <a id="btn-voltar" class="botao botao-claro" href="#0">Voltar</a>
+    <span id="rodape-dica"></span>
+    <button type="button" id="btn-continuar" class="botao botao-grande">Continuar</button>
+  </div>
+
+  <footer id="site-rodape" class="site-rodape">
+    <section class="vantagens" id="vantagens">
+      <h2>Por que o MTAX?</h2>
+      <p class="lead">O MTAX é uma plataforma própria para GTA San Andreas, com cliente e servidor independentes. Veja o que muda para o seu servidor.</p>
+      <div class="tabela">
+        <table>
+          <thead><tr><th scope="col"><span class="invisivel">Recurso</span></th><th scope="col">No MTA</th><th scope="col">No MTAX</th></tr></thead>
+          <tbody>
+          <tr><th scope="row">Proteção dos arquivos</th><td>Depende de ferramentas à parte</td><td>Todos os assets 100% criptografados: png, fontes, txd, dff, .lua e .map</td></tr>
+          <tr><th scope="row">Custo da proteção</th><td>Normalmente há mensalidade</td><td>Grátis para compilar scripts e modelagens. Nada de encomendar algo e ficar desprotegido</td></tr>
+          <tr><th scope="row">Anti-cheat</th><td>Proteção extra depende de serviços externos</td><td>Nativo e ligado por padrão. Você configura cada permissão de forma simples</td></tr>
+          <tr><th scope="row">Interfaces</th><td>DX, ou navegador desenhado em uma textura</td><td>DX ou HTML, com CEF atualizado, do mesmo modelo do FiveM</td></tr>
+          <tr><th scope="row">Sistemas de lojas</th><td>Falhas de segurança pedem gambiarras, e os sistemas tendem a pesar mais</td><td>A proteção da plataforma roda com zero delay e sem gambiarra</td></tr>
+          <tr><th scope="row">FPS</th><td>Acostumado com 60</td><td>Ilimitado: o céu é o limite</td></tr>
+          <tr><th scope="row">Linguagem dos scripts</th><td>Lua 5.1</td><td>Lua 5.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="extras">
+        <div><h3>Código do servidor protegido</h3><p>Os scripts de servidor nunca são enviados para a máquina do jogador.</p></div>
+        <div><h3>Voz por proximidade</h3><p>Já faz parte do jogo, sem programa extra, com redução de ruído e distância ajustável.</p></div>
+        <div><h3>Launcher que se atualiza sozinho</h3><p>Com lista oficial de servidores, jogadores em tempo real, filtros e favoritos.</p></div>
+        <div><h3>Sua ideia pode entrar na plataforma</h3><p>A comunidade é ativa. Tem uma sugestão do que adicionar? É só enviar.</p></div>
+        <div><h3>Projetos temáticos</h3><p>Estão trabalhando para migrar mapas de jogos famosos, como Bully, Farming Simulator, The Last of Us e Vice City.</p></div>
+      </div>
+      <p class="mais-info">Para mais informações e novidades, acesse <a href="https://mtaxsa.com/" target="_blank" rel="noopener">mtaxsa.com</a>.</p>
+    </section>
+    <div class="duvidas">
+      <h2>Dúvidas comuns</h2>
+      <details><summary>Vocês vão ver ou guardar meus sistemas?</summary><p>Não. Tudo acontece no seu navegador e nada é enviado. Se preferir, <a data-repo target="_blank" rel="noopener">baixe o projeto aberto no GitHub</a> e rode no seu PC, sem usar este site.</p></details>
+      <details><summary>Preciso saber programar?</summary><p>Não. É só seguir os passos. Se travar, chame a gente no Discord.</p></details>
+      <details><summary>Meu servidor atual vai parar ou mudar?</summary><p>Não. O site trabalha em uma cópia, e o seu servidor continua como está.</p></details>
+      <details><summary>Tem limite de tamanho?</summary><p>O limite é o espaço livre no PC. Deixe livre pelo menos o dobro do tamanho do servidor.</p></details>
+      <details><summary>Aceita .rar ou .7z?</summary><p>Não. Extraia e arraste a pasta, ou compacte em <code>.zip</code>.</p></details>
+      <details><summary>Banco de dados e contas vão junto?</summary><p>Os arquivos <code>.db</code> e <code>.sqlite</code> dos seus sistemas vão juntos, na pasta <code>databases</code>. Banco MySQL ou MariaDB fica fora: mantenha o seu e aponte os sistemas para ele.</p></details>
+    </div>
+    <div class="site-rodape-fim">
+      <img src="logo.png" alt="Hyper Scripts">
+      <a data-repo target="_blank" rel="noopener">Código aberto no GitHub</a>
+      <a href="https://discord.gg/hyperscripts" target="_blank" rel="noopener">Discord</a>
+      <a href="https://hyperscripts.com.br/" target="_blank" rel="noopener">Site da Hyper Scripts</a>
+    </div>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
